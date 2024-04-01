@@ -446,7 +446,7 @@ class RealFillDataset(Dataset):
             [
                 transforms_v2.RandomResize(size, int(1.125 * size)),
                 transforms_v2.RandomCrop(size),
-                transforms_v2.ToImageTensor(),
+                transforms_v2.ToTensor(),
                 transforms_v2.ConvertImageDtype(),
                 transforms_v2.Normalize([0.5], [0.5]),
             ]
