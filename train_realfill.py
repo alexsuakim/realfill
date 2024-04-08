@@ -458,8 +458,12 @@ class RealFillDataset(Dataset):
     def __getitem__(self, index):
         example = {}
 
+        height, width = 512, 512
+
         image = Image.open(self.train_images_path[index])
         image = exif_transpose(image)
+
+        image = image.resize((width, height), Image.ANTIALIAS)
 
         if not image.mode == "RGB":
             image = image.convert("RGB")
