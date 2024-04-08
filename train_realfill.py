@@ -463,8 +463,6 @@ class RealFillDataset(Dataset):
         image = Image.open(self.train_images_path[index])
         image = exif_transpose(image)
 
-        image = image.resize((width, height), Image.ANTIALIAS)
-
         if not image.mode == "RGB":
             image = image.convert("RGB")
 
@@ -473,6 +471,9 @@ class RealFillDataset(Dataset):
         else:
             weighting = Image.open(self.target_mask)
             weighting = exif_transpose(weighting)
+
+        image = image.resize((width, height), Image.LANCZOS)
+        weighting = weighting.resize((width, height), Image.LANCZOS)
 
         image, weighting = self.transform(image, weighting)
         example["images"], example["weightings"] = image, weighting < 0
